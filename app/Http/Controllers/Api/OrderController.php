@@ -124,6 +124,6 @@ class OrderController extends Controller
 
     public function getAll()
     {
-        return response()->json(['success' => 'OK', 'products' => $this->service->getUsers()], 200);
+        return response()->json(['success' => 'OK', 'products' => $this->service->orderAll()], 200);
     }
 }

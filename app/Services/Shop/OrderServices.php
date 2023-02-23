@@ -324,9 +324,10 @@ class OrderServices
     /**
      * показать всех товаров
      */
-    public function getUsers()
+    public function orderAll()
     {
-        return Product::all();
+        $order = Order::all();
+        return $order->loadMissing('user', 'orderItems', 'orderItems.product');
     }
 
     /**
