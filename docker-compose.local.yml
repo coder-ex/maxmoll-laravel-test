@@ -1,0 +1,104 @@
+version: "3.8"
+
+services:
+  php:
+    build: ./docker/php-fpm
+    container_name: maxmoll-php-fpm
+    image: maxmoll/php-fpm
+    volumes:
+      - ${PATH_HOST}:${PATH_CONTAINER}
+      - ${PATH_SERVICE}/logs/xdebug:/var/log/xdebug
+    working_dir: ${PATH_CONTAINER}
+    environment:
+      XDEBUG_CONFIG: "client_host=192.168.222.1 start_with_request=no client_port=9008"
+      XDEBUG_SESSION: "PHPVCS"
+      PHP_IDE_CONFIG: "serverName=school-server"
+    ports:
+      - "9010:9000"
+    networks:
+      - maxmoll_net
+
+  nginx:
+    build:
+      context: docker/nginx
+    image: maxmoll/http-nginx
+    container_name: maxmoll-http-nginx
+    depends_on:
+      - php
+    volumes:
+      - ${PATH_HOST}:${PATH_CONTAINER}
+      - ${PATH_SERVICE}/logs/nginx:/var/log/nginx
+    ports:
+      - "192.168.222.1:80:80"
+      - "192.168.222.1:443:443"
+    networks:
+      - maxmoll_net
+
+  mysql:
+    build:
+      context: docker/mysql
+    image: maxmoll/mysql-db
+    container_name: maxmoll-mysql-db
+    command: --default-authentication-plugin=mysql_native_password
+    user: '1000'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: qwertynet
+      MYSQL_DATABASE: db_maxmoll
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+    volumes:
+      - ${DB_PATH_HOST}:/var/lib/mysql
+    ports:
+      - "33060:3306"
+    depends_on:
+      - nginx
+    networks:
+      - maxmoll_net
+#      maxmoll_net:
+#        ipv4_address: 192.168.222.4
+
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:latest
+#    container_name: admin-mysql
+#    depends_on:
+#      - mysql
+#    restart: always
+#    ports:
+#      - "8080:80"
+#    environment:
+#      PMA_ARBITRARY: 1
+#      PMA_HOST: mysql
+#      PMA_USER: admin
+#      PMA_PASSWORD: user_password
+#    volumes:
+#      - /session
+#    networks:
+#      - maxmoll_net
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: maxmoll-dev-pma
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+#      - "3306:80"
+      - "8080:80"
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: ${MYSQL_HOST}
+      PMA_USER: ${MYSQL_USER}
+      PMA_PASSWORD: ${MYSQL_PASS}
+    volumes:
+      - /session
+    networks:
+      - maxmoll_net
+
+networks:
+  maxmoll_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.222.0/28 # нам много адресов не нужно

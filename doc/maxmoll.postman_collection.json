@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "6ae68d53-b666-4034-8df2-77ef7262d16c",
+		"name": "maxmoll",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "создать пользователя",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"user_3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/users/add",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "получение пользователя",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/users/2",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "редактирование пользователя",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":234587,\n    \"name\":\"kisa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/users/edit",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "удаление пользователя",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/users/remove/234587",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"remove",
+								"234587"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "все пользователи",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/users",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "создать товар",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Readmi Note 8T\",\n    \"price\":185.00,\n    \"stocks\":5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/products/add",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "получить товар",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/products/1",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "редактировать товар",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":1,\n    \"name\":\"Readmi Note 12\",\n    \"price\":115,\n    \"stocks\":23\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/products/edit",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "удалить товар",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/products/remove/1",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"remove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "все товары",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/products",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "создать заказ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"customer\": \"Loris\",\n    \"phone\": \"89998887766\",\n    \"products\": [\n        {\n            \"name\": \"Readmi Note 8T\",\n            \"count\": 10,\n            \"discount\": 5\n        },\n        {\n            \"name\": \"Readmi Note 10 Pro\",\n            \"count\": 45,\n            \"discount\": 0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders/add",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "получить заказ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders/1",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "редактировать заказ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\":10,\n    \"name\":\"какой то там смарт\",\n    \"price\":115.00,\n    \"stocks\":23\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders/edit",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "отменить заказ",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders/cancelled/1",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"cancelled",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "возврат отмены заказа",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders/recancelled/1",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders",
+								"recancelled",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "все заказы",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MAXMOLL_API_URL}}/api/orders",
+							"host": [
+								"{{MAXMOLL_API_URL}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
