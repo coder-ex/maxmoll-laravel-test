@@ -75,6 +75,7 @@ class UserServices
      */
     public function getUsers()
     {
-        return User::all();
+        $users = User::all();
+        return $users->loadMissing('orders');
     }
 }
