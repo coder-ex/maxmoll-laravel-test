@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+
+        <!-- Таблица заказов -->
         <table class="table table-sm table-bordered">
             <thead class="thead-blue">
                 <tr>

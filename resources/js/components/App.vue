@@ -7,6 +7,8 @@
                         <router-link :to="{ name: 'products' }">главная</router-link>
                         <span> | </span>
                         <router-link :to="{ name: 'orders' }">заказы</router-link>
+                        <span> | </span>
+                        <router-link :to="{ name: 'orderCancelled' }">отмена заказа</router-link>
                     </div>
 
                     <div class="card-body">
