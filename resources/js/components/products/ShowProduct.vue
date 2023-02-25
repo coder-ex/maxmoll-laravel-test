@@ -26,38 +26,47 @@
             </button>
         </div>
 
+        <spin v-if="loading"></spin>
     </div>
 </template>
 
 <script>
+import Spin from "../Spiner";
+
 export default {
     name: "ShowProducts",
     props: [
-        'id'
+        'productId'
     ],
+    components: {
+        Spin,
+    },
     data() {
         return {
-            //product: null,
             product: {
-                id: 1,
-                name: "xiaomi",
-                price: 285,
-                stock: 123
+                id: null,
+                name: "",
+                price: null,
+                stock: null
             },
+            loading: true,
             isError: false,
         }
     },
-    async created() {
+    async mounted() {
         try {
-            let res = await axios.get('api/products/' + this.id);
-            this.test = await res;
+            let res = await axios.get('http://school.loc/api/products/' + this.productId);
+            this.product = await res.data.data;
 
-            console.log(this.test);
-
-            //if (this.products.length > 0) this.loading = false;
+            if (this.product !== undefined) this.loading = false;
         } catch (error) {
             console.log(error);
             this.isError = true;
+        }
+    },
+    methods: {
+        isShow() {
+            this.isError = !this.isError;
         }
     }
 }

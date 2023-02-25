@@ -9250,3 +9250,11 @@ a.text-dark:hover, a.text-dark:focus {
     transform: translate(-50%, -50%);
 }
 
+
+.thead-blue {
+    background: #639ffa;
+}
+.tbody-lite {
+    background: #c1ebff;
+}
+

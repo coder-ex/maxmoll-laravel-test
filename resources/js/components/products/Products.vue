@@ -3,14 +3,14 @@
         <h2 style="text-align: center;">Карточки товаров</h2>
 
         <div class="row">
-            <div class="col-lg-4" v-for="product in products" v-bind:item="product" v-bind:key="product.id">
+            <div class="col-lg-4" v-for="item in data" v-bind:item="item" v-bind:key="item.id">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <router-link class="card-title" :to="{ name: 'showProduct', params: { id: product.id } }">
-                            <h5 class="card-title">{{ product.name }}</h5>
+                        <router-link class="card-title" :to="{ name: 'showProduct', params: { productId: item.id } }">
+                            <h5 class="card-title">{{ item.name }}</h5>
                         </router-link>
-                        <div style="size: 3px; text-align: right;">цена: {{ product.price }} usd</div>
-                        <div style="size: 3px; text-align: right;">кол-во: {{ product.stock }} шт.</div>
+                        <div style="size: 3px; text-align: right;">цена: {{ item.price }} usd</div>
+                        <div style="size: 3px; text-align: right;">кол-во: {{ item.stock }} шт.</div>
                     </div>
                 </div>
             </div>
@@ -37,7 +37,7 @@ export default {
     },
     data() {
         return {
-            products: [],
+            data: [],
             isError: false,
             loading: true,
         }
@@ -45,9 +45,9 @@ export default {
     async mounted() {
         try {
             let res = await axios.get('api/products');
-            this.products = await res.data.data;
+            this.data = await res.data.data;
 
-            if(this.products.length > 0) this.loading = false;
+            if(this.data.length > 0) this.loading = false;
         } catch (error) {
             console.log(error);
             this.isError = true;
