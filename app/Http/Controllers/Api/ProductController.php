@@ -35,7 +35,7 @@ class ProductController extends Controller
 
         try {
             $data = $this->service->createProduct(...$validated);
-            return response()->json(['success' => 'OK', 'user' => $data], 200);
+            return response()->json(['success' => 'OK', 'data' => $data], 200);
         } catch (Exception $e) {
             return response()->json(['success' => 'ERROR', 'message' => $e->getMessage()], $e->getCode());
         }
@@ -49,7 +49,7 @@ class ProductController extends Controller
 
         try {
             $data = $this->service->readProduct($id);
-            return response()->json(['success' => 'OK', 'user' => $data], 200);
+            return response()->json(['success' => 'OK', 'data' => $data], 200);
         } catch (Exception $e) {
             return response()->json(['success' => 'ERROR', 'message' => $e->getMessage()], $e->getCode());
         }
@@ -62,7 +62,7 @@ class ProductController extends Controller
                 'id'=> 'required|integer',
                 'name' => 'required|string|min:3|max:255',
                 'price' => 'required|numeric',
-                'stocks' => 'required|integer',
+                'stock' => 'required|integer',
             ], [
                 'required' => 'Необходимо заполнить поле :attribute.'
             ]);
@@ -72,7 +72,7 @@ class ProductController extends Controller
 
         try {
             $data = $this->service->updateProduct(...$validated);
-            return response()->json(['success' => 'OK', 'user' => $data], 200);
+            return response()->json(['success' => 'OK', 'data' => $data], 200);
         } catch (Exception $e) {
             return response()->json(['success' => 'ERROR', 'message' => $e->getMessage()], $e->getCode());
         }
@@ -94,6 +94,6 @@ class ProductController extends Controller
 
     public function getAll()
     {
-        return response()->json(['success' => 'OK', 'products' => $this->service->getUsers()], 200);
+        return response()->json(['success' => 'OK', 'data' => $this->service->getUsers()], 200);
     }
 }

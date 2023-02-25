@@ -48,7 +48,7 @@ class ProductServices
      * float $price стоимость одной единицы товара
      * int $stocks остаток на складе
      */
-    public function updateProduct(int $id, string $name, float $price, int $stocks)
+    public function updateProduct(int $id, string $name, float $price, int $stock)
     {
         $product = Product::where('id', $id)->first();
         if (!$product) {
@@ -60,7 +60,7 @@ class ProductServices
             $item['name'] = $name;
         }
         $item['price'] = $price;
-        $item['stocks'] = $stocks;
+        $item['stock'] = $stock;
         //---
         return $this->repository->updateItem(Product::class, $id, $item) ? ['message' => 'данные обновлены'] : ['message' => 'обновление не требуется'];
     }
