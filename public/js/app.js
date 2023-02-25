@@ -2138,74 +2138,69 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 3:
             res = _context.sent;
             _this.order = _this.serializeOrder(res.data.order);
+            console.log(res.data.order);
             if (_this.order !== undefined) _this.loading = false;
-            _context.next = 12;
+            _context.next = 13;
             break;
-          case 8:
-            _context.prev = 8;
+          case 9:
+            _context.prev = 9;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
             _this.isError = true;
-          case 12:
+          case 13:
           case "end":
             return _context.stop();
         }
-      }, _callee, null, [[0, 8]]);
+      }, _callee, null, [[0, 9]]);
     }))();
   },
   methods: {
     saveData: function saveData() {
-      var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var body;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              body = JSON.stringify({
-                id: _this2.order.id,
-                type: _this2.order.id,
-                status: _this2.order.id,
-                manager: _this2.order.id,
-                customer: _this2.order.id,
-                phone: _this2.order.id,
-                products: {
-                  name: _this2.order.user.name,
-                  count: _this2.order.user.name,
-                  discount: _this2.order.user.name
-                }
-              });
-              console.log(body);
+      var body = JSON.stringify({
+        id: this.order.id,
+        type: this.order.id,
+        status: this.order.id,
+        manager: this.order.id,
+        customer: this.order.id,
+        phone: this.order.id,
+        products: {
+          name: this.order.user.name,
+          count: this.order.user.name,
+          discount: this.order.user.name
+        }
+      });
+      console.log(body);
 
-              // try {
+      // try {
 
-              //     await axios.put('http://school.loc/api/orders/edit', {
-              //         body: JSON.stringify(this.order)
-              //     });
-              // } catch (error) {
-              //     console.log(error);
-              //     this.isError = true;
-              // }
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }))();
+      //     await axios.put('http://school.loc/api/orders/edit', {
+      //         body: JSON.stringify(this.order)
+      //     });
+      // } catch (error) {
+      //     console.log(error);
+      //     this.isError = true;
+      // }
     },
     serializeOrder: function serializeOrder(data) {
-      return {
-        id: data.id,
-        type: data.type,
-        status: data.status,
-        manager: data.user.name,
-        customer: data.customer,
-        phone: data.phone
-        // products: {
-        //     name: data.user.name,
-        //     count: data.user.name,
-        //     discount: data.user.name,
-        // }
-      };
+      var order = {};
+      order.id = data.id;
+      order.type = data.type;
+      order.status = data.status;
+      order.manager = data.user.name;
+      order.customer = data.customer;
+      order.phone = data.phone;
+      order.order_items = [];
+      for (var i = 0; i < data.order_items.length; i++) {
+        order.order_items.push(data.order_items[i]);
+      }
+
+      // products: {
+      //     name: data.user.name,
+      //     count: data.user.name,
+      //     discount: data.user.name,
+      // }
+
+      return order;
     },
     isShow: function isShow() {
       this.isError = !this.isError;
@@ -2531,7 +2526,11 @@ var render = function render() {
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("Редактирование заказа ID " + _vm._s(_vm.order.id))]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Редактирование заказа")]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "font-weight": "700"
+    }
+  }, [_vm._v("заказ: ID " + _vm._s(_vm.order.id))]), _vm._v(" "), _c("div", {
     staticClass: "input-group input-group-sm mb-3"
   }, [_vm._m(0), _vm._v(" "), _c("input", {
     directives: [{
@@ -2646,7 +2645,40 @@ var render = function render() {
         _vm.$set(_vm.order, "status", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("router-link", {
+  })]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      "font-weight": "700"
+    }
+  }, [_vm._v("товаров в заказе: " + _vm._s(_vm.order.order_items.length))]), _vm._v(" "), _vm._l(_vm.order.order_items, function (item) {
+    return _c("div", {
+      key: item.id,
+      staticClass: "input-group input-group-sm mb-3",
+      attrs: {
+        item: item
+      }
+    }, [_vm._m(5, true), _vm._v(" "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: item.cost,
+        expression: "item.cost"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        "aria-describedby": "order-5"
+      },
+      domProps: {
+        value: item.cost
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(item, "cost", $event.target.value);
+        }
+      }
+    })]);
+  }), _vm._v(" "), _c("router-link", {
     staticClass: "card-title",
     attrs: {
       to: {
@@ -2683,7 +2715,7 @@ var render = function render() {
     attrs: {
       "aria-hidden": "true"
     }
-  }, [_vm._v("×")])])]) : _vm._e(), _vm._v(" "), _vm.loading ? _c("spin") : _vm._e()], 1);
+  }, [_vm._v("×")])])]) : _vm._e(), _vm._v(" "), _vm.loading ? _c("spin") : _vm._e()], 2);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -2740,6 +2772,17 @@ var staticRenderFns = [function () {
       id: "order-5"
     }
   }, [_vm._v("STATUS")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "input-group-prepend"
+  }, [_c("span", {
+    staticClass: "input-group-text",
+    attrs: {
+      id: "order-5"
+    }
+  }, [_vm._v("COST")])]);
 }];
 render._withStripped = true;
 

@@ -1,6 +1,7 @@
 <template>
     <div class="container">
-        <h3 style="text-align: center;">Редактирование заказа ID {{ order.id }}</h3>
+        <h3 style="text-align: center;">Редактирование заказа</h3>
+        <div style="font-weight: 700;">заказ: ID {{ order.id }}</div>
         <div class="input-group input-group-sm mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="order-1">CUSTOMER</span>
@@ -30,6 +31,14 @@
                 <span class="input-group-text" id="order-5">STATUS</span>
             </div>
             <input type="text" class="form-control" aria-describedby="order-5" v-model="order.status">
+        </div>
+
+        <div style="font-weight: 700;">товаров в заказе: {{ order.order_items.length }}</div>
+        <div class="input-group input-group-sm mb-3" v-for="item in order.order_items" v-bind:item="item" v-bind:key="item.id">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="order-5">COST</span>
+            </div>
+            <input type="text" class="form-control" aria-describedby="order-5" v-model="item.cost">
         </div>
 
 
@@ -76,15 +85,16 @@ export default {
             let res = await axios.get('http://school.loc/api/orders/' + this.orderId);
             this.order = this.serializeOrder(res.data.order);
 
+            console.log(res.data.order);
+
             if (this.order !== undefined) this.loading = false;
         } catch (error) {
             console.log(error);
             this.isError = true;
         }
     },
-
     methods: {
-        async saveData() {
+        saveData() {
             let body = JSON.stringify({
                 id: this.order.id,
                 type: this.order.id,
@@ -111,19 +121,25 @@ export default {
             // }
         },
         serializeOrder(data) {
-            return {
-                id: data.id,
-                type: data.type,
-                status: data.status,
-                manager: data.user.name,
-                customer: data.customer,
-                phone: data.phone,
-                // products: {
-                //     name: data.user.name,
-                //     count: data.user.name,
-                //     discount: data.user.name,
-                // }
-            };
+            let order = {};
+            order.id = data.id;
+            order.type = data.type;
+            order.status = data.status;
+            order.manager = data.user.name;
+            order.customer = data.customer;
+            order.phone = data.phone;
+            order.order_items = [];
+            for (let i = 0; i < data.order_items.length; i++) {
+                order.order_items.push( data.order_items[i]);
+            }
+
+            // products: {
+            //     name: data.user.name,
+            //     count: data.user.name,
+            //     discount: data.user.name,
+            // }
+
+            return order;
         },
         isShow() {
             this.isError = !this.isError;
