@@ -21,11 +21,21 @@
                     <td>{{ item.type }}</td>
                     <td>{{ item.status }}</td>
                     <td style="background: #ffffff;">
-                        <button type="button" class="btn btn-sm btn-warning">Edit</button>
+                        <router-link class="card-title" :to="{ name: 'orderEdit', params: { orderId: item.id } }">
+                            <a type="button" class="btn btn-sm btn-warning">Edit</a>
+                        </router-link>
                     </td>
                 </tr>
             </tbody>
         </table>
+
+        <!-- ошибки вылетают и радуют глаз -->
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
+            Ошибка загрузки данных !!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
 
         <spin v-if="loading"></spin>
     </div>
@@ -70,6 +80,7 @@ export default {
 .thead-blue {
     background: #639ffa;
 }
+
 .tbody-lite {
     background: #c1ebff;
 }

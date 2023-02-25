@@ -9,6 +9,7 @@ import App from './components/App';
 import Products from './components/products/Products';
 import ShowProduct from './components/products/ShowProduct';
 import Orders from './components/orders/Orders';
+import OrderEdit from './components/orders/OrderEdit';
 
 const router = new VueRouter({
     mode: 'history',
@@ -28,6 +29,12 @@ const router = new VueRouter({
             path: '/orders',
             name: 'orders',
             component: Orders
+        },
+        {
+            path: 'orders/:orderId',
+            name: 'orderEdit',
+            component: OrderEdit,
+            props: true
         }
     ]
 });

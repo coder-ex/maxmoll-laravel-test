@@ -19,6 +19,7 @@
             </div>
         </div>
 
+        <!-- ошибки вылетают и радуют глаз -->
         <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
             Ошибка загрузки данных !!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">

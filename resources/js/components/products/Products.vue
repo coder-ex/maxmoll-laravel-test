@@ -15,6 +15,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- ошибки вылетают и радуют глаз -->
         <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
             Ошибка загрузки данных !!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">
@@ -45,7 +47,7 @@ export default {
     async mounted() {
         try {
             let res = await axios.get('api/products');
-            this.data = await res.data.data;
+            this.data = res.data.data;
 
             if(this.data.length > 0) this.loading = false;
         } catch (error) {
