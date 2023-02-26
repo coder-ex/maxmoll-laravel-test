@@ -10,6 +10,7 @@
 /public/build
 /public/hot
 /public/storage
+/public/js
 /storage/*.key
 /storage/logs/*.log
 /vendor
