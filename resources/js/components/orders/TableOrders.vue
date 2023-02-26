@@ -11,27 +11,29 @@
                     <th scope="col">MANAGER</th>
                     <th scope="col">TYPE</th>
                     <th scope="col">STATUS</th>
-                    <th scope="col" style="background: #ffffff;"></th>
+                    <th scope="col">&nbsp</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-warning" v-on:click="onShow" v-for="item in data" v-bind:item="item" v-bind:key="item.id">
+                <tr class="table-warning" v-for="item in data" v-bind:item="item" v-bind:key="item.id"
+                    v-on:click="onClick(item)">
+
                     <th class="bg-dark" scope="row">{{ item.id }}</th>
                     <td class="td-cell">{{ item.customer }}</td>
                     <td class="td-cell">{{ item.phone }}</td>
                     <td class="td-cell">{{ item.user.name }}</td>
                     <td class="td-cell">{{ item.type }}</td>
                     <td class="td-cell">{{ item.status }}</td>
+
                     <td style="background: #ffffff;">
-                        <router-link class="card-title" :to="{ name: 'orderEdit', params: { orderId: item.id } }">
-                            <a type="button" class="btn btn-sm btn-warning">Edit</a>
+                        <router-link class="card-title" :to="{ name: 'orderCard', params: { orderId: item.id } }">
+                            <button type="button" class="btn btn-sm btn-outline-success">Карточка</button>
                         </router-link>
                     </td>
                 </tr>
+
             </tbody>
         </table>
-
-        <p>Кнопка выше была нажата {{ counter }} раз</p>
 
         <!-- ошибки вылетают и радуют глаз -->
         <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
@@ -58,8 +60,6 @@ export default {
             data: [],
             isError: false,
             loading: true,
-
-            name: "",
         }
     },
     async mounted() {
@@ -75,8 +75,8 @@ export default {
         }
     },
     methods: {
-        onShow() {
-
+        onClick(item) {
+            console.log(item.id);
         },
         isShow() {
             this.isError = !this.isError;

@@ -77,9 +77,6 @@ import Spin from "../Spiner";
 
 export default {
     name: 'OrderCreate',
-    props: [
-        'orderId'
-    ],
     components: {
         Spin,
     },
