@@ -60,7 +60,7 @@ class OrderServices
             'user_id' => Arr::random(User::all()->toArray())['id'],             // назначим рандомно менеджера, потом сделать через отложенное событи
             'type' => TypeOrder::ONLINE->value,
             'status' => ($status_orders) ? TypeStatus::ACTIVE->value : TypeStatus::COMPLETED->value
-        ]);
+        ])?->id;
 
         //--- обновим данные по товару на складе
         $dataDB = [];
