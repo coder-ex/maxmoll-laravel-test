@@ -3,17 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: mysql
--- Время создания: Фев 23 2023 г., 21:42
+-- Время создания: Фев 26 2023 г., 23:15
 -- Версия сервера: 5.7.41
 -- Версия PHP: 8.1.15
 
---
--- Дамп БД с тестовыми данными
--- несколько пользователей
--- 5 позиций товара
--- 1 заказ
--- в заказе 3 позиции товара
---
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -32,8 +25,6 @@ SET time_zone = "+00:00";
 
 --
 -- Структура таблицы `migrations`
---
--- Создание: Фев 19 2023 г., 06:05
 --
 
 CREATE TABLE `migrations` (
@@ -57,9 +48,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 -- Структура таблицы `orders`
 --
--- Создание: Фев 21 2023 г., 16:12
--- Последнее обновление: Фев 23 2023 г., 20:49
---
 
 CREATE TABLE `orders` (
   `id` bigint(20) UNSIGNED NOT NULL,
@@ -77,15 +65,19 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `customer`, `phone`, `created_at`, `completed_at`, `user_id`, `type`, `status`) VALUES
-(1, 'Loris', '89998887766', '2023-02-21 16:13:06', '2023-02-23 20:49:34', 1, 'online', 'active');
+(1, 'Loris', '89998887766', '2023-02-21 16:13:06', '2023-02-25 12:50:37', 1, 'online', 'active'),
+(5, 'Kisa', '89138894037', '2023-02-26 03:46:05', '2023-02-26 13:15:57', 1, 'online', 'active'),
+(6, 'Ksusha', '89138885555', '2023-02-26 03:47:05', '2023-02-26 03:47:05', 2, 'online', 'active'),
+(7, 'Roma', '89138880000', '2023-02-26 06:42:53', '2023-02-26 19:11:47', 2, 'online', 'active'),
+(8, 'Stas', '89050894433', '2023-02-26 20:15:54', '2023-02-26 20:15:54', 4, 'online', 'completed'),
+(9, 'Alex', '89039554090', '2023-02-26 20:21:31', '2023-02-26 20:21:31', 4, 'online', 'completed'),
+(13, 'Kolya', '89139994567', '2023-02-26 20:31:38', '2023-02-26 20:31:38', 4, 'online', 'completed'),
+(14, 'Lusya', '1234567890', '2023-02-26 23:02:40', '2023-02-26 23:12:20', 3, 'online', 'active');
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `order_items`
---
--- Создание: Фев 22 2023 г., 04:46
--- Последнее обновление: Фев 23 2023 г., 20:49
 --
 
 CREATE TABLE `order_items` (
@@ -104,15 +96,24 @@ CREATE TABLE `order_items` (
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `count`, `discount`, `cost`) VALUES
 (119, 1, 3, 10, 5.00, 2707.50),
 (120, 1, 2, 5, 0.00, 1280.00),
-(122, 1, 4, 5, 1.00, 915.75);
+(122, 1, 4, 5, 1.00, 915.75),
+(147, 5, 3, 5, 5.00, 1353.75),
+(148, 5, 2, 5, 0.00, 1280.00),
+(149, 6, 3, 5, 5.00, 1353.75),
+(150, 6, 2, 5, 0.00, 1280.00),
+(151, 7, 1, 8, 5.00, 2340.80),
+(152, 7, 2, 5, 5.00, 1216.00),
+(174, 8, 3, 1, 10.00, 256.50),
+(175, 9, 3, 1, 5.00, 270.75),
+(179, 13, 1, 5, 10.00, 1386.00),
+(180, 14, 1, 10, 0.00, 3080.00),
+(181, 14, 2, 5, 5.00, 1216.00),
+(182, 14, 3, 3, 10.00, 769.50);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `products`
---
--- Создание: Фев 21 2023 г., 10:26
--- Последнее обновление: Фев 23 2023 г., 20:49
 --
 
 CREATE TABLE `products` (
@@ -127,18 +128,15 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `stock`) VALUES
-(1, 'Readmi Note 9 Pro', 308.00, 88),
-(2, 'Readmi Note 10 Pro', 256.00, 50),
-(3, 'Readmi Note 11 Lite', 285.00, 15),
+(1, 'Readmi Note 9 Pro', 308.00, 65),
+(2, 'Readmi Note 10 Pro', 256.00, 30),
+(3, 'Readmi Note 11 Lite', 285.00, 0),
 (4, 'Readmi Note 8T', 185.00, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Структура таблицы `users`
---
--- Создание: Фев 19 2023 г., 10:39
--- Последнее обновление: Фев 21 2023 г., 08:54
 --
 
 CREATE TABLE `users` (
@@ -212,13 +210,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=164;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
