@@ -71,7 +71,7 @@ class OrderServices
             $this->repository->updateItem(Product::class, $unit['id'], ['stock' => $unit['item']['stock']]);
 
             $dataDB[] = [
-                'order_id' => $order_id,
+                'order_id' => $order_id->id,
                 'product_id' => $unit['id'],
                 'count' => isset($unit['message']) ? 0 : $unit['item']['count'],
                 'discount' => $unit['item']['discount'],

@@ -9251,13 +9251,23 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 
-.thead-blue {
+/* .thead-blue {
     background: #639ffa;
 }
+
 .tbody-lite {
     background: #c1ebff;
+} */
+.td-cell {
+    color: #303030;
 }
 
 .tbody-edit[data-v-1a4496f9] {
+  background: #fc8874;
+}
+.tbody-edit[data-v-f1dc46f6] {
+  background: #fc8874;
+}
+.tbody-edit[data-v-8f22f1aa] {
   background: #fc8874;
 }

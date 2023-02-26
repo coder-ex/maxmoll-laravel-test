@@ -6,9 +6,11 @@
                     <div class="card-header" style="text-align: center;">
                         <router-link :to="{ name: 'products' }">главная</router-link>
                         <span> | </span>
-                        <router-link :to="{ name: 'orders' }">заказы</router-link>
+                        <router-link :to="{ name: 'tableOrders' }">таблица заказов</router-link>
                         <span> | </span>
-                        <router-link :to="{ name: 'orderCancelled' }">отмена заказа</router-link>
+                        <router-link :to="{ name: '' }">статистика</router-link>
+                        <span> | </span>
+                        <router-link :to="{ name: '' }">создать заказ</router-link>
                     </div>
 
                     <div class="card-body">
