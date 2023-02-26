@@ -73,17 +73,21 @@
                     <div style="font-weight: 700;">товаров в заказе: {{ order.products.length }}</div>
                     <div class="input-group input-group-sm mb-3" v-for="(item, idx,) in order.products" v-bind:item="item"
                         v-bind:key="idx">
+
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="order-6">Наименование</span>
                         </div>
                         <input type="text" class="form-control" aria-describedby="order-6" v-model="item.name"
-                            v-bind:readonly="read">
+                            v-bind:readonly="read" required>
+                        <select v-model="item.name" style="width: 20px;">
+                            <option v-for="option in GET_GOODS" v-bind:value="option.name">{{ option.name }}</option>
+                        </select>
 
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="order-7">Количество</span>
                         </div>
                         <input type="text" class="form-control" aria-describedby="order-7" v-model="item.count"
-                            v-bind:readonly="read">
+                            v-bind:readonly="read" required>
 
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="order-8">Скидка</span>
@@ -132,7 +136,7 @@ export default {
             read: true,
         };
     },
-    computed: { ...mapGetters(['GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS']) },
+    computed: { ...mapGetters(['GET_GOODS', 'GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS']) },
     async mounted() {
         this.update();
     },

@@ -9,8 +9,6 @@ import TableOrders from './components/orders/TableOrders';
 import OrderCard from './components/orders/OrderCard';
 import OrderCreate from './components/orders/OrderCreate';
 
-import OrderCancelled from './components/orders/OrderCancelled';
-
 const routes = [
     { path: '/products', name: 'products', component: Products },
     { path: '/products/:productId', name: 'showProduct', component: ShowProduct, props: true },
@@ -19,7 +17,7 @@ const routes = [
     { path: 'orders/:orderId', name: 'orderCard', component: OrderCard, props: true },
     { path: 'orders/add', name: 'orderCreate', component: OrderCreate },
 
-    { path: 'orders/cancelled/:orderId', name: 'orderCancelled', component: OrderCancelled, props: true },
+    //{ path: 'orders/cancelled/:orderId', name: 'orderCancelled', component: OrderCancelled, props: true },
 ];
 
 export default new VueRouter({

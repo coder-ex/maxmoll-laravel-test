@@ -65,11 +65,15 @@
                     <div style="font-weight: 700;">товаров в заказе: {{ order.products.length }}</div>
                     <div class="input-group input-group-sm mb-3" v-for="(item, idx,) in order.products" v-bind:item="item"
                         v-bind:key="idx">
+
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="order-6">Наименование</span>
                         </div>
                         <input type="text" class="form-control" aria-describedby="order-6" v-model="item.name"
                             placeholder="наименование товара" required>
+                        <select v-model="item.name" style="width: 20px;">
+                            <option v-for="option in GET_GOODS" v-bind:value="option.name">{{ option.name }}</option>
+                        </select>
 
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="order-7">Количество</span>
@@ -105,6 +109,7 @@
 </template>
 
 <script>
+import { Binding } from "@babel/traverse";
 import Spin from "../Spiner";
 import { mapGetters, mapActions } from "vuex";
 
@@ -125,7 +130,7 @@ export default {
             read: true,
         };
     },
-    computed: { ...mapGetters(['GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS', 'GET_LOADING']) },
+    computed: { ...mapGetters(['GET_GOODS', 'GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS', 'GET_LOADING']) },
     async mounted() {
         this.update();
     },
@@ -171,6 +176,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// @import "../../../sass/base/variables.scss";
+
+// #btn.btn-light {
+//     background-color: $def-background;
+//     border-color: $def-background;
+// }
+// #btn.btn-light:hover  {
+//     background-color: $def-background-hover;
+//     border-color: $def-background-hover;
+
+//     .img-logo {
+//         background-color: $def-background-hover;
+//     }
+// }
+// #img.img-logo {
+//     width: 30px;
+//     height: 30px;
+//     background-color: $def-background;
+// }
+// #img.img-logo:hover {
+//     background-color: $def-background-hover;
+// }
+
+//---
+
 .tbody-edit {
     background: #fc8874;
 }
