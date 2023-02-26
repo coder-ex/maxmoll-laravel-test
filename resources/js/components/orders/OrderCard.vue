@@ -100,20 +100,20 @@
         </div>
 
         <!-- ошибки вылетают и радуют глаз -->
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
-            Ошибка загрузки данных !! {{ this.error }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="GET_IS_ERROR_ORDERS">
+            Ошибка загрузки данных !! {{ GET_ERRORS_ORDERS }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="IS_SHOW_ORDERS">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <spin v-if="loading"></spin>
+        <spin v-if="GET_LOADING_ORDERS"></spin>
     </div>
 </template>
 
 <script>
-import axios from "axios";
 import Spin from "../Spiner";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: 'OrderCard',
@@ -129,73 +129,35 @@ export default {
                 user: "",
                 products: []
             },
-            loading: true,
-            isError: false,
             read: true,
-            error: {},
         };
     },
-
+    computed: { ...mapGetters(['GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS']) },
     async mounted() {
-        try {
-            let res = await axios.get('http://school.loc/api/orders/' + this.orderId);
-            this.order = this.serializeOrder(res.data.order);
-
-            if (this.order !== undefined) this.loading = false;
-        } catch (error) {
-            //console.log(error);
-            this.isError = true;
-            this.error = error.message;
-        }
+        this.update();
     },
     methods: {
-        async saveData() {
-            try {
-                let res = await axios.put('http://school.loc/api/orders/edit', this.order);
-                //console.log(res);
-            } catch (error) {
-                //console.log(error);
-                this.isError = true;
-                this.error = error.message;
-            }
+        ...mapActions(['ORDER_SAVE', 'ORDER_TODO_ID', 'IS_SHOW_ORDERS', 'SET_ERRORS_ORDERS',]),
+        async update() {
+            //let res = await axios.get('/api/orders/' + this.orderId);
+
+            this.order = await this.ORDER_TODO_ID(this.orderId);
+            console.log(this.order);
         },
         checkOrder() {
             let flag = false;
             for (let i = 0; i < this.order.products.length; i++) {
                 if (this.order.products[i].name === "" || this.order.products[i].count == 0) {
                     flag = true;
-                    //console.log(this.order.products[i]);
                     break;
                 }
             }
 
-            //console.log(flag);
-
-            if(!flag) {
+            if (!flag) {
                 this.order.status = 'active';
                 this.isRead();
-                this.saveData();
+                this.ORDER_SAVE(this.order);
             }
-        },
-        serializeOrder(data) {
-            let order = {};
-            order.id = data.id;
-            order.type = data.type;
-            order.status = data.status;
-            order.manager = data.user.name;
-            order.customer = data.customer;
-            order.phone = data.phone;
-            order.products = [];
-            for (let i = 0; i < data.order_items.length; i++) {
-                let product = {
-                    name: data.order_items[i].product.name,
-                    count: data.order_items[i].count,
-                    discount: data.order_items[i].discount,
-                }
-                order.products.push(product);
-            }
-            //---
-            return order;
         },
         addGoods() {
             this.order.products.push({
@@ -210,9 +172,6 @@ export default {
         isRead() {
             this.read = !this.read;
         },
-        isShow() {
-            this.isError = !this.isError;
-        }
     },
 };
 </script>

@@ -9262,9 +9262,6 @@ a.text-dark:hover, a.text-dark:focus {
     color: #303030;
 }
 
-.tbody-edit[data-v-1a4496f9] {
-  background: #fc8874;
-}
 @charset "UTF-8";
 .tbody-edit[data-v-8b6c9e02] {
   background: #fc8874;
@@ -9301,6 +9298,39 @@ a.btn-order-save[data-v-8b6c9e02]:hover {
   /* Цвет ссылки */
   text-decoration: none;
 }
+@charset "UTF-8";
 .tbody-edit[data-v-8f22f1aa] {
   background: #fc8874;
+}
+.btn-order[data-v-8f22f1aa] {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #6c757d;
+  color: #6c757d;
+}
+.btn-order-save[data-v-8f22f1aa] {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: #ff2433;
+  color: #ff2433;
+}
+a.btn-order[data-v-8f22f1aa]:hover {
+  background: #6c757d;
+  /* Цвет фона под ссылкой */
+  color: #ffffff;
+  /* Цвет ссылки */
+  text-decoration: none;
+}
+a.btn-order-save[data-v-8f22f1aa]:hover {
+  background: #ff2433;
+  /* Цвет фона под ссылкой */
+  color: #ffffff;
+  /* Цвет ссылки */
+  text-decoration: none;
 }

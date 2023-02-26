@@ -134,5 +134,6 @@ __[ /api/orders ]__
     })->where('any', '.*');
 
 * npm install bootstrap@^4 - обязательно ставим bootstrap (выбираем последнюю минорную версию 4)
+* npm install vuex@^3 --save - ставим vuex для управления состоянием
 
 

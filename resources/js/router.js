@@ -6,7 +6,6 @@ Vue.use(VueRouter);
 import Products from './components/products/Products';
 import ShowProduct from './components/products/ShowProduct';
 import TableOrders from './components/orders/TableOrders';
-import OrderEdit from './components/orders/OrderEdit';
 import OrderCard from './components/orders/OrderCard';
 import OrderCreate from './components/orders/OrderCreate';
 

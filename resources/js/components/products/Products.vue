@@ -3,7 +3,7 @@
         <h2 style="text-align: center;">Карточки товаров</h2>
 
         <div class="row">
-            <div class="col-lg-4" v-for="item in data" v-bind:item="item" v-bind:key="item.id">
+            <div class="col-lg-4" v-for="item in GET_GOODS" v-bind:item="item" v-bind:key="item.id">
                 <div class="card mt-3">
                     <div class="card-body">
                         <router-link class="card-title" :to="{ name: 'showProduct', params: { productId: item.id } }">
@@ -17,49 +17,38 @@
         </div>
 
         <!-- ошибки вылетают и радуют глаз -->
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
-            Ошибка загрузки данных !!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="GET_IS_ERROR">
+            Ошибка загрузки данных !! {{ GET_ERRORS }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="IS_SHOW_GOODS">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <spin v-if="loading"></spin>
-
+        <spin v-if="GET_LOADING"></spin>
     </div>
 </template>
 
 <script>
 import Spin from "../Spiner";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: "Products",
     components: {
         Spin,
     },
-    data() {
-        return {
-            data: [],
-            isError: false,
-            loading: true,
-        }
-    },
-    async mounted() {
-        try {
-            let res = await axios.get('api/products');
-            this.data = res.data.data;
-
-            if(this.data.length > 0) this.loading = false;
-        } catch (error) {
-            console.log(error);
-            this.isError = true;
-            this.loading = false;
-        }
+    data: () => ({
+        //data: [],
+    }),
+    computed: { ...mapGetters(['GET_GOODS', 'GET_ERRORS', 'GET_IS_ERROR', 'GET_LOADING']) },
+    mounted() {
+        this.update();
     },
     methods: {
-        isShow() {
-            this.isError = !this.isError;
-        }
+        ...mapActions(['GOODS_TODO', 'IS_SHOW_GOODS',]),
+        update() {
+            this.GOODS_TODO();
+        },
     }
 }
 </script>

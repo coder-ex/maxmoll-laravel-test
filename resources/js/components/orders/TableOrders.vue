@@ -15,8 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table-warning" v-for="item in data" v-bind:item="item" v-bind:key="item.id"
-                    v-on:click="onClick(item)">
+                <tr class="table-warning" v-for="item in GET_ORDERS" v-bind:item="item" v-bind:key="item.id">
 
                     <th class="bg-dark" scope="row">{{ item.id }}</th>
                     <td class="td-cell">{{ item.customer }}</td>
@@ -36,51 +35,36 @@
         </table>
 
         <!-- ошибки вылетают и радуют глаз -->
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="isError">
-            Ошибка загрузки данных !!
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="isShow">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="GET_IS_ERROR_ORDERS">
+            Ошибка загрузки данных !! {{ GET_ERRORS_ORDERS }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" v-on:click="IS_SHOW_ORDERS">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
 
-        <spin v-if="loading"></spin>
+        <spin v-if="GET_LOADING_ORDERS"></spin>
     </div>
 </template>
 
 <script>
 import Spin from "../Spiner";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: 'TableOrders',
     components: {
         Spin,
     },
-    data() {
-        return {
-            data: [],
-            isError: false,
-            loading: true,
-        }
-    },
-    async mounted() {
-        try {
-            let res = await axios.get('http://school.loc/api/orders');
-            this.data = await res.data.products;
-
-            if (this.data.length > 0) this.loading = false;
-        } catch (error) {
-            console.log(error);
-            this.isError = true;
-            this.loading = false;
-        }
+    data: () => ({}),
+    computed: { ...mapGetters(['GET_ORDERS', 'GET_ERRORS_ORDERS', 'GET_IS_ERROR_ORDERS', 'GET_LOADING_ORDERS']) },
+    mounted() {
+        this.update();
     },
     methods: {
-        onClick(item) {
-            console.log(item.id);
+        ...mapActions(['ORDERS_TODO', 'IS_SHOW_ORDERS',]),
+        update() {
+            this.ORDERS_TODO();
         },
-        isShow() {
-            this.isError = !this.isError;
-        }
     }
 }
 </script>

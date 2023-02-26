@@ -59,7 +59,8 @@ class OrderServices
             'phone' => $phone,
             'user_id' => Arr::random(User::all()->toArray())['id'],             // назначим рандомно менеджера, потом сделать через отложенное событи
             'type' => TypeOrder::ONLINE->value,
-            'status' => ($status_orders) ? TypeStatus::ACTIVE->value : TypeStatus::COMPLETED->value
+            //'status' => ($status_orders) ? TypeStatus::ACTIVE->value : TypeStatus::COMPLETED->value
+            'status' => TypeStatus::ACTIVE->value,
         ])?->id;
 
         //--- обновим данные по товару на складе
@@ -86,7 +87,8 @@ class OrderServices
 
         //---
         return [
-            'status' => ($status_orders) ? TypeStatus::ACTIVE->value : TypeStatus::COMPLETED->value,
+            //'status' => ($status_orders) ? TypeStatus::ACTIVE->value : TypeStatus::COMPLETED->value,
+            'status' => TypeStatus::ACTIVE->value,
             'message' => '',
             'order' => $dataDB
         ];
